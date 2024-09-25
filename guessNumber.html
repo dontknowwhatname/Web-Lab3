@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess the Number Game</title>
+    <script src="guessNumber.js"></script>
+</head>
+<body>
+    <h1>Guess the Number Game</h1>
+    <p>We have selected a random number between 1 and 100. Can you guess it?</p>
+    <p id="message"></p>
+    <input type="number" id="guessInput" placeholder="Enter your guess">
+    <button onclick="submitGuess()">Guess</button>
+    <p id="guesses"></p>
+    <button onclick="resetGame()" id="resetButton" style="display: none;">Reset Game</button>
+
+    <script>
+        var guessCount = 0; 
+
+        function submitGuess() {
+            var guess = parseInt(document.getElementById('guessInput').value);
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                document.getElementById('message').innerText = "Please enter a number between 1 and 100.";
+                return;
+            }
+            guesses.push(guess);
+            guessCount++;
+            document.getElementById('guesses').innerText = "Your guesses: " + guesses.join(", ");
+            if (guess === randomIntValue) {
+                document.getElementById('message').innerText = "Congratulations! You've guessed the right number.";
+                document.getElementById('resetButton').style.display = 'inline';
+            } else if (guessCount >= 10) {
+                document.getElementById('message').innerText = "Game over! You've used all your turns. The number was " + randomIntValue + ".";
+                document.getElementById('resetButton').style.display = 'inline';
+            } else if (guess < randomIntValue) {
+                document.getElementById('message').innerText = "Your guess is too low. Try again!";
+            } else if (guess > randomIntValue) {
+                document.getElementById('message').innerText = "Your guess is too high. Try again!";
+            }
+        }
+
+        function resetGame() {
+            document.getElementById('message').innerText = "";
+            document.getElementById('guesses').innerText = "";
+            document.getElementById('guessInput').value = "";
+            document.getElementById('resetButton').style.display = 'none';
+            randomInt(); 
+            guessCount = 0; 
+        }
+
+        randomInt();
+    </script>
+</body>
+</html>
